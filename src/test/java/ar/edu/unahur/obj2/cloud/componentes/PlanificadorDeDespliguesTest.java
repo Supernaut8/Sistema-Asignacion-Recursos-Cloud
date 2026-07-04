@@ -21,7 +21,7 @@ public class PlanificadorDeDespliguesTest {
         plan.agregarOperacion(new Asignacion(cluster0, 50));
         plan.agregarOperacion(new Liberacion(cluster0, 100));
 
-        plan.ejecutar();      
+        plan.ejecutar();
 
         assertEquals(400, cluster0.getVcpus());
     }
@@ -38,10 +38,26 @@ public class PlanificadorDeDespliguesTest {
 
         assertThrows(OverprovisionException.class, () -> {
             plan.ejecutar();
-        });     
+        });
 
         assertEquals(140, cluster0.getVcpus());
     }
+
+    @Test
+    void deshacerPlanRevierteOperaciones() throws OverprovisionException {
+
+        Cluster cluster = new Cluster("cp1", 140);
+
+        PlanificaDespliegue plan = new PlanificaDespliegue();
+
+        plan.agregarOperacion(new Asignacion(cluster, 50));
+
+        plan.ejecutar();
+
+        assertEquals(90, cluster.getVcpus());
+
+        plan.deshacer();
+
+        assertEquals(140, cluster.getVcpus());
+    }
 }
-
-
