@@ -6,7 +6,9 @@ public class AlarmaSaturacion implements ObservadorCluster {
 
     @Override
     public void actualizar(Movimiento movimiento) {
-        if(movimiento.);
+        if(movimiento.getCapacidadActual() < 0) {
+            System.out.print("Alerta clúster operando en la zona de overprovisioning");
+        };
     }
 
 }

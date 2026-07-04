@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ar.edu.unahur.obj2.cloud.Excepciones.OverprovisionException;
+import ar.edu.unahur.obj2.cloud.comandos.TipoMovimiento;
 import ar.edu.unahur.obj2.cloud.observadores.ObservadorCluster;
 
 public class Cluster {
@@ -31,10 +32,12 @@ public class Cluster {
             throw new OverprovisionException();
 
         this.vcpus -= cantidad;
+        informar(new Movimiento(TipoMovimiento.ASIGNACION));
     } 
 
     public void liberar(Integer cantidad) {
         this.vcpus += cantidad;
+        informar(new Movimiento(TipoMovimiento.LIBERACION));
     }
 
     public void agregarObservador(ObservadorCluster observador) {
