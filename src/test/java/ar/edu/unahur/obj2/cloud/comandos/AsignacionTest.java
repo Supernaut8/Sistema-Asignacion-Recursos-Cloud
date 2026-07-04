@@ -26,6 +26,19 @@ public class AsignacionTest {
         Ejecutable operacion = new Asignacion(cluster0, 30);
 
         operacion.ejecutar();
+
         assertEquals(320, cluster0.getVcpus());
+    }
+
+    @Test
+    void testDeshacerAsignacionAnteriorYComprobarVcpus() throws OverprovisionException {
+
+        Cluster cluster0 = new Cluster("cp1", 350);
+        Asignacion operacion = new Asignacion(cluster0, 30);
+
+        operacion.ejecutar();
+        operacion.deshacer();
+
+        assertEquals(350, cluster0.getVcpus());
     }
 }
