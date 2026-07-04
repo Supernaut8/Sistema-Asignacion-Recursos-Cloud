@@ -41,7 +41,7 @@ public class PlanificaDespliegue implements Ejecutable {
 
     @Override
     public void deshacer() throws OverprovisionException {
-        for (Integer i = operaciones.size() - 1; i >= 0; i++) {
+        for (Integer i = operaciones.size() - 1; i >= 0; i--) {
             operaciones.get(i).deshacer();
         }      
     }
